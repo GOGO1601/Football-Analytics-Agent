@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FootballStats — Performance Over Time (Q1)</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link rel="stylesheet" href="src/styles.css">
+    <link rel="stylesheet" href="src/nav.css">
+    <!-- theme.js runs immediately (before paint) to set data-theme on <html> -->
+    <script src="src/theme.js"></script>
+</head>
+<body>
+
+<!-- ── Global Nav ────────────────────────────────────── -->
+<nav class="global-nav" id="globalNav">
+    <div class="gnav-inner">
+        <a href="home.html" class="gnav-logo">
+            <span class="gnav-logo-icon">⚽</span>
+            <span class="gnav-logo-text">FootballStats</span>
+        </a>
+        <div class="gnav-links">
+            <div class="gnav-group">
+                <span class="gnav-group-label">Analysis</span>
+                <a href="index.html"                   class="gnav-link gnav-link--active">📈 Trends</a>
+                <a href="q2-offensive-vs-success.html"  class="gnav-link">🎯 Attack</a>
+                <a href="q3-disciplinary.html"          class="gnav-link">🟨 Discipline</a>
+            </div>
+            <div class="gnav-group">
+                <span class="gnav-group-label">Leagues</span>
+                <button class="gnav-link gnav-league-btn" data-league="Premier League">🏴󠁧󠁢󠁥󠁮󠁧󠁿 PL</button>
+                <button class="gnav-link gnav-league-btn" data-league="La Liga">🇪🇸 La Liga</button>
+                <button class="gnav-link gnav-league-btn" data-league="Bundesliga">🇩🇪 Bundesliga</button>
+                <button class="gnav-link gnav-league-btn" data-league="Serie A">🇮🇹 Serie A</button>
+                <button class="gnav-link gnav-league-btn" data-league="Ligue 1">🇫🇷 Ligue 1</button>
+            </div>
+        </div>
+        <div class="gnav-right">
+            <button class="theme-toggle" aria-label="Toggle theme">
+                <span class="toggle-icon">🌙</span>
+                <span class="toggle-label">Dark Mode</span>
+            </button>
+            <div class="gnav-page-tabs">
+                <span class="gnav-tab gnav-tab--active">Q1 · Trends</span>
+                <a href="q2-offensive-vs-success.html" class="gnav-tab">Q2 · Attack</a>
+                <a href="q3-disciplinary.html"         class="gnav-tab">Q3 · Discipline</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="page page--with-nav">
+
+    <header class="header">
+        <div class="header-top">
+            <div>
+                <h1>Performance Over Time</h1>
+                <p>Track and compare team performance across seasons. Select a league, metric, and up to 4 teams.</p>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;">
+                <button class="theme-toggle" aria-label="Toggle theme">
+                    <span class="toggle-icon">🌙</span>
+                    <span class="toggle-label">Dark Mode</span>
+                </button>
+                <nav class="page-nav">
+                    <span class="page-nav-item active">Q1 · Trends</span>
+                    <a href="q2-offensive-vs-success.html" class="page-nav-item">Q2 · Offensive</a>
+                    <a href="q3-disciplinary.html" class="page-nav-item">Q3 · Discipline</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="controls-card">
+        <div class="controls-grid">
+            <div class="control-group">
+                <label for="leagueSelect">League</label>
+                <select id="leagueSelect"></select>
+            </div>
+            <div class="control-group">
+                <label for="metricSelect">Metric</label>
+                <select id="metricSelect">
+                    <option value="Points">Points</option>
+                    <option value="GoalsFor">Goals Scored</option>
+                    <option value="GoalDiff">Goal Difference</option>
+                    <option value="Wins">Wins</option>
+                </select>
+            </div>
+            <div class="control-group teams-group">
+                <label for="teamSelect">Teams (max 4)</label>
+                <select id="teamSelect" multiple></select>
+                <small id="teamWarning" class="warning-text"></small>
+            </div>
+            <div class="control-group button-group">
+                <label>&nbsp;</label>
+                <button id="resetButton">Reset</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="summary-row">
+        <div class="summary-card">
+            <div class="summary-label">League</div>
+            <div class="summary-value" id="summaryLeague">—</div>
+        </div>
+        <div class="summary-card">
+            <div class="summary-label">Metric</div>
+            <div class="summary-value" id="summaryMetric">—</div>
+        </div>
+        <div class="summary-card">
+            <div class="summary-label">Teams Selected</div>
+            <div class="summary-value" id="summaryTeams">—</div>
+        </div>
+        <div class="summary-card">
+            <div class="summary-label">Seasons Shown</div>
+            <div class="summary-value" id="summarySeasons">—</div>
+        </div>
+    </section>
+
+    <section class="chart-card">
+        <div class="chart-header">
+            <h2 id="chartTitle">Team Comparison Over Time</h2>
+            <div id="legend" class="legend"></div>
+        </div>
+        <div id="chart"></div>
+    </section>
+
+</div>
+
+<div id="tooltip" class="tooltip"></div>
+<script src="src/main.js"></script>
+<script>
+// Scroll shadow on nav
+window.addEventListener('scroll', () =>
+    document.getElementById('globalNav').classList.toggle('gnav--scrolled', window.scrollY > 10));
+
+// League quick-switch buttons in nav
+document.querySelectorAll('.gnav-league-btn').forEach(btn =>
+    btn.addEventListener('click', () => {
+        const sel = document.getElementById('leagueSelect');
+        if (sel) { sel.value = btn.dataset.league; sel.dispatchEvent(new Event('change')); }
+    })
+);
+
+// If arriving from home page with a league pre-selected
+const initLeague = sessionStorage.getItem('fb-initial-league');
+if (initLeague) {
+    sessionStorage.removeItem('fb-initial-league');
+    setTimeout(() => {
+        const sel = document.getElementById('leagueSelect');
+        if (sel && [...sel.options].some(o => o.value === initLeague)) {
+            sel.value = initLeague;
+            sel.dispatchEvent(new Event('change'));
+        }
+    }, 2800);
+}
+</script>
+<!-- Agent layer -->
+<link rel="stylesheet" href="src/agent-panel.css">
+<script src="src/chart-actions.js"></script>
+<script src="src/agent-api.js"></script>
+<script src="src/agent-panel.js"></script>
+</body>
+</html>

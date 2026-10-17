@@ -1,0 +1,86 @@
+/* q3-styles.css — Q3 Disciplinary Impact page styles (dark theme) */
+
+/* ---- Nav back link (same as Q2) ---- */
+.nav-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 14px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    transition: color 0.15s;
+}
+.nav-back:hover { color: var(--red); }
+
+/* ---- Q3 controls grid (4 filters + reset) ---- */
+.q3-controls-grid {
+    grid-template-columns: 200px 180px 180px 120px;
+}
+
+/* ---- Bubble chart specific ---- */
+circle.discipline-bubble {
+    cursor: pointer;
+    transition: stroke-width 0.12s, stroke-opacity 0.12s;
+}
+circle.discipline-bubble:hover { stroke-width: 2.5px; }
+
+/* ---- Red/yellow card legend boxes ---- */
+.card-legend-row {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-top: 4px;
+}
+
+/* ---- Size scale legend ---- */
+.size-legend { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.size-legend-circle {
+    border-radius: 50%;
+    border: 1.5px solid rgba(30,60,100,0.30);
+    flex-shrink: 0;
+    display: inline-block;
+    background: transparent;
+}
+
+/* ---- Chart notes ---- */
+.chart-notes {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    padding: 22px 26px;
+    border: 1px solid var(--border);
+    margin-bottom: 20px;
+}
+.chart-notes h3 {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+    margin-bottom: 14px;
+}
+.chart-notes ul {
+    padding-left: 20px;
+    color: var(--text-secondary);
+    font-size: 13.5px;
+    line-height: 1.9;
+}
+.chart-notes strong { color: var(--text-primary); }
+
+/* ---- Danger zone annotation ---- */
+.danger-zone-label {
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    fill: var(--red);
+    opacity: 0.6;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 900px)  { .q3-controls-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px)  { .q3-controls-grid { grid-template-columns: 1fr; } }

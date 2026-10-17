@@ -1,0 +1,96 @@
+Football Stats App - How To Use
+
+
+Getting Started
+
+- Open the project folder in WebStorm IDE
+- Open 'home.html' and press on 'Debug' to launch the app in your browser
+- From the home page you can jump into any of the three analysis pages
+
+
+Navigation
+
+- The top nav bar is always visible no matter which page you're on
+- Under "Analysis" in the nav bar you'll find links to all three pages:
+    Trends (Q1)
+    Attack (Q2)
+    Discipline (Q3)
+- You can also switch pages using the Q1, Q2, Q3 tabs on the top right
+- To switch leagues quickly, just click the league buttons in the nav bar (PL, La Liga, Bundesliga, Serie A, Ligue 1) and it updates the current page instantly
+- The sun/moon icon in the top right toggles dark/light mode and it stays remembered when you switch pages
+
+
+Q1 - Trends Page (index.html)
+
+This page shows how team performance changed across seasons using a line chart. Each line is one team.
+
+League dropdown
+- Pick which league you want to look at
+- The team list below updates automatically to only show teams from that league
+
+Metric dropdown
+- Changes what the chart is measuring on the vertical axis
+- Options are Points, Wins, Goals Scored, and Goal Difference
+
+Teams selector
+- Pick up to 4 teams to compare at the same time
+- Hold Ctrl (or Cmd on Mac) and click to select multiple teams
+- If you try to pick more than 4 it'll show a warning
+
+Reset button
+- Clears your selections and goes back to the default view
+
+Reading the chart
+- Left to right on the X axis is oldest to newest seasons
+- Higher up on the Y axis means better performance in that metric
+- Hover over any dot on a line to see the exact numbers for that team and season
+- The summary cards at the top show you the current league, metric, number of teams selected, and seasons loaded
+
+
+Q2 - Attack Page (q2-offensive-vs-success.html)
+
+This page is a scatter plot showing whether teams that attack more tend to get more points. Each dot is one team in one season.
+
+X-axis metric dropdown
+- Changes the attacking stat shown on the horizontal axis
+- Options are Avg Shots per Game, Goals Scored, and Shots on Target
+
+League filter
+- Narrow it down to one league or keep it on All Leagues to see everything together
+
+Reading the chart
+- Dots higher up = more points, dots further right = more attacking output
+- Different colours = different leagues, the legend is on the right side
+- The dotted trend line shows the overall direction, if it goes up from left to right it means more attacking links to more points
+- The R2 number tells you how strong that pattern is, closer to 1 is stronger
+
+Brushing
+- Click and drag on the chart to draw a selection box around specific dots
+- A table appears below showing the exact stats for those selected teams
+- Click Clear Selection to remove it
+
+Hover
+- Hover over any dot to see the team name, league, season, and their exact stats
+
+
+Q3 - Discipline Page (q3-disciplinary.html)
+
+This page is a bubble chart looking at whether teams with more cards or fouls tend to finish lower in the league. Only seasons that actually have card/foul data recorded are shown here so fewer dots is normal.
+
+X-axis dropdown
+- Switch between Avg Yellow Cards per Game or Avg Fouls per Game on the horizontal axis
+
+League filter
+- Filter by one league or keep all leagues shown
+
+Colour mode dropdown
+- By League colours each bubble by which league it belongs to
+- By Intensity colours bubbles based on how many yellow cards that team got, lighter means fewer, darker means more
+
+Reset button
+- Goes back to default settings for this page
+
+Reading the chart
+- Bubble size = average red cards per game, bigger bubble means more red cards that season
+- If the trend line goes downward from left to right it means more disciplinary actions link to fewer points
+- Hover over any bubble to see the team, league, season, yellow cards, red cards, and points

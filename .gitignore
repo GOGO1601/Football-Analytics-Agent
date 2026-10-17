@@ -1,0 +1,13 @@
+.env
+.idea/
+__pycache__/
+*.pyc
+.venv/
+.cache/
+mlruns/
+mlartifacts/
+.phoenix/
+*.mp4
+.pytest_cache/
+.DS_Store
+*.egg-info/

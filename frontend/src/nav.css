@@ -1,0 +1,147 @@
+/* ============================================================
+   nav.css — Global navigation bar for analysis pages (Q1/Q2/Q3)
+   Uses tokens from styles.css. Full dark/light mode support.
+   ============================================================ */
+
+/* ── Global nav bar ─────────────────────────────────── */
+.global-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 500;
+    background: transparent;
+    transition: background 0.22s, box-shadow 0.22s;
+}
+.global-nav.gnav--scrolled {
+    background: var(--bg-card);
+    box-shadow: 0 1px 0 var(--border), 0 2px 16px rgba(0,0,0,0.06);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.gnav-inner {
+    max-width: 1360px;
+    margin: 0 auto;
+    padding: 0 28px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+/* Logo */
+.gnav-logo {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    text-decoration: none;
+    flex-shrink: 0;
+}
+.gnav-logo-icon { font-size: 20px; }
+.gnav-logo-text {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-primary);
+}
+
+/* Link groups */
+.gnav-links {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex: 1;
+}
+.gnav-group {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+.gnav-group-label {
+    font-size: 9.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    padding-right: 10px;
+    border-right: 1px solid var(--border);
+    margin-right: 6px;
+    white-space: nowrap;
+}
+.gnav-link {
+    padding: 5px 10px;
+    border-radius: 7px;
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-body);
+    transition: background 0.14s, color 0.14s;
+    white-space: nowrap;
+}
+.gnav-link:hover {
+    background: var(--accent-dim);
+    color: var(--accent);
+}
+.gnav-link--active {
+    background: var(--accent-dim);
+    color: var(--accent);
+    font-weight: 700;
+}
+
+/* Right cluster */
+.gnav-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+/* Page tabs (Q1 / Q2 / Q3 switcher) */
+.gnav-page-tabs {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 3px;
+}
+.gnav-tab {
+    padding: 5px 12px;
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: background 0.14s, color 0.14s;
+    white-space: nowrap;
+    font-family: var(--font-body);
+}
+.gnav-tab:hover { background: var(--accent-dim); color: var(--accent); }
+.gnav-tab--active {
+    background: var(--accent);
+    color: #fff;
+    font-weight: 700;
+}
+[data-theme="dark"] .gnav-tab--active { color: #0b0f19; }
+
+/* Push .page down so content clears the fixed nav */
+.page--with-nav {
+    padding-top: calc(60px + 32px);
+}
+
+/* ── Responsive ──────────────────────────────────────── */
+@media (max-width: 1100px) {
+    .gnav-links { display: none; }
+    .gnav-inner { gap: 12px; }
+}
+@media (max-width: 700px) {
+    .gnav-page-tabs { display: none; }
+    .gnav-logo-text { display: none; }
+}
