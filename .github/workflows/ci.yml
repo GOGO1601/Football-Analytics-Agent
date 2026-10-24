@@ -1,0 +1,14 @@
+name: ci
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: agent-backend } }
+    env: { USE_MOCK_LLM: "true" }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: pip install ".[dev,agents,api]"    # langgraph for test_graph.py, fastapi/httpx for test_api.py
+      - run: python -m playwright install --with-deps chromium   # browser for tests/test_frontend_agent.py
+      - run: pytest -q
